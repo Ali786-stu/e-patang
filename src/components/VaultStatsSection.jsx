@@ -67,7 +67,7 @@ const VaultStatsSection = () => {
                 scrollTrigger: {
                     trigger: sectionRef.current,
                     start: "top top",
-                    end: "+=300%", // Reduced scroll distance since we removed door opening
+                    end: "+=200%", // Reduced from 300% to minimize gap
                     pin: true,
                     scrub: 1.5,
                 }
@@ -81,24 +81,24 @@ const VaultStatsSection = () => {
             }, null, "<");
 
             // PHASE 2: PAUSE & SLIDE TO GRAVITY
-            tl.to({}, { duration: 2 }); // Viewing Stats
+            tl.to({}, { duration: 1.5 }); // Reduced from 2
 
             tl.to(stackContainerRef.current, {
                 yPercent: -50,
-                duration: 4,
+                duration: 3,
                 ease: "power1.inOut"
             }, "slideUp");
 
             tl.call(() => {
                 setStartGravity(true);
-            }, null, "slideUp+=2");
+            }, null, "slideUp+=1.5");
 
-            tl.to({}, { duration: 3 }); // Viewing Gravity
+            tl.to({}, { duration: 2 }); // Reduced from 3
 
             // FINAL EXIT: Slide up to next section
             tl.to(pinContainerRef.current, {
                 yPercent: -100,
-                duration: 3,
+                duration: 2,
                 ease: "power2.inOut"
             }, "+=0.5");
 
@@ -144,19 +144,55 @@ const VaultStatsSection = () => {
                                 <div className="hidden md:block absolute left-1/3 top-10 bottom-10 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent" />
                                 <div className="hidden md:block absolute right-1/3 top-10 bottom-10 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent" />
 
-                                <div className="group cursor-default p-6 md:p-8 rounded-2xl hover:bg-white/5 transition-colors duration-500">
+                                <div
+                                    className="group cursor-default p-6 md:p-8 rounded-2xl transition-colors duration-500 relative overflow-hidden"
+                                    style={{
+                                        background: 'radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 141, 194, 0.15), transparent 40%)'
+                                    }}
+                                    onMouseMove={(e) => {
+                                        const rect = e.currentTarget.getBoundingClientRect();
+                                        const x = e.clientX - rect.left;
+                                        const y = e.clientY - rect.top;
+                                        e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+                                        e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+                                    }}
+                                >
                                     <div className="text-6xl md:text-8xl font-display font-semibold text-transparent bg-clip-text bg-gradient-to-b from-[#44D79E] to-[#2E8B66] mb-4">
                                         <span ref={el => statsRefs.current[0] = el} data-value="50" data-suffix="M+">0</span>
                                     </div>
                                     <div className="text-white/60 text-sm md:text-base font-medium tracking-widest uppercase">Views On Linkedin</div>
                                 </div>
-                                <div className="group cursor-default p-6 md:p-8 rounded-2xl hover:bg-white/5 transition-colors duration-500">
+                                <div
+                                    className="group cursor-default p-6 md:p-8 rounded-2xl transition-colors duration-500 relative overflow-hidden"
+                                    style={{
+                                        background: 'radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 141, 194, 0.15), transparent 40%)'
+                                    }}
+                                    onMouseMove={(e) => {
+                                        const rect = e.currentTarget.getBoundingClientRect();
+                                        const x = e.clientX - rect.left;
+                                        const y = e.clientY - rect.top;
+                                        e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+                                        e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+                                    }}
+                                >
                                     <span className="text-6xl md:text-8xl font-display font-semibold text-transparent bg-clip-text bg-gradient-to-b from-[#44D79E] to-[#2E8B66] mb-4">
                                         <span ref={el => statsRefs.current[1] = el} data-value="20" data-suffix="+">0</span>
                                     </span>
                                     <div className="text-white/60 text-sm md:text-base font-medium tracking-widest uppercase">Countries</div>
                                 </div>
-                                <div className="group cursor-default p-6 md:p-8 rounded-2xl hover:bg-white/5 transition-colors duration-500">
+                                <div
+                                    className="group cursor-default p-6 md:p-8 rounded-2xl transition-colors duration-500 relative overflow-hidden"
+                                    style={{
+                                        background: 'radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 141, 194, 0.15), transparent 40%)'
+                                    }}
+                                    onMouseMove={(e) => {
+                                        const rect = e.currentTarget.getBoundingClientRect();
+                                        const x = e.clientX - rect.left;
+                                        const y = e.clientY - rect.top;
+                                        e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+                                        e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+                                    }}
+                                >
                                     <span className="text-6xl md:text-8xl font-display font-semibold text-transparent bg-clip-text bg-gradient-to-b from-[#44D79E] to-[#2E8B66] mb-4">
                                         <span ref={el => statsRefs.current[2] = el} data-value="500" data-suffix="+">0</span>
                                     </span>

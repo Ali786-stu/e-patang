@@ -310,15 +310,6 @@ const Hero = () => {
                                     fillOpacity="0.6"
                                     d="M0,0 Q500,0 1000,0 V1000 H0 Z"
                                 />
-                                {/* Surface Highlight Line */}
-                                <path
-                                    ref={waveHighlightRef}
-                                    fill="none"
-                                    stroke="white"
-                                    strokeOpacity="0.3"
-                                    strokeWidth="2"
-                                    d="M0,0 Q500,0 1000,0"
-                                />
                             </svg>
                         </div>
                     </div>

@@ -4,7 +4,8 @@ import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import VaultStatsSection from './components/VaultStatsSection';
-import ServicesSection from './components/ServicesSection';
+import AboutSection from './components/AboutSection';
+import ProcessSection from './components/ProcessSection';
 
 function App() {
     return (
@@ -17,12 +18,10 @@ function App() {
                 <VaultStatsSection />
 
                 {/* About Section */}
-                <section id="about" className="h-screen bg-[#050505] flex items-center justify-center border-y border-white/5">
-                    <h2 className="text-5xl font-display font-bold text-white">ABOUT US</h2>
-                </section>
+                <AboutSection />
 
-                {/* Services Section */}
-                <ServicesSection />
+                {/* Process Section */}
+                <ProcessSection />
 
                 {/* Testimonial Section */}
                 <section id="testimonial" className="h-screen bg-[#050505] flex items-center justify-center border-y border-white/5">
