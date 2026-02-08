@@ -1,7 +1,8 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { motion } from 'framer-motion';
+import { motion, useSpring, useMotionValue } from 'framer-motion';
+import MagneticButton from './MagneticButton';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -88,13 +89,13 @@ const AboutSection = () => {
                 {/* Horizontal Scroll Container */}
                 <div
                     ref={scrollContainerRef}
-                    className="absolute inset-0 flex items-center gap-12 px-12"
+                    className="absolute inset-0 flex items-center gap-10 px-12"
                     style={{ width: 'max-content' }}
                 >
                     {/* Card 1: Introduction */}
                     <div
                         ref={el => cardsRef.current[0] = el}
-                        className="relative flex-shrink-0 w-[90vw] md:w-[70vw] h-[80vh] rounded-3xl overflow-hidden transition-transform duration-300"
+                        className="relative flex-shrink-0 w-[85vw] md:w-[65vw] h-[60vh] rounded-3xl overflow-hidden transition-transform duration-300"
                         style={{
                             background: 'radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 141, 194, 0.1), transparent 40%)'
                         }}
@@ -103,9 +104,9 @@ const AboutSection = () => {
                         {/* Glassmorphism Background */}
                         <div className="absolute inset-0 bg-white/5 backdrop-blur-md border border-white/10" />
 
-                        <div className="relative z-10 h-full flex flex-col md:flex-row items-center justify-center p-8 md:p-16 gap-8">
+                        <div className="relative z-10 h-full flex flex-col md:flex-row items-center justify-center p-8 md:p-12 gap-8">
                             {/* Left: Image */}
-                            <div className="flex-shrink-0 w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden border-4 border-[#44D79E]/30 shadow-2xl">
+                            <div className="flex-shrink-0 w-48 h-48 md:w-64 md:h-64 rounded-2xl overflow-hidden border-4 border-[#44D79E]/30 shadow-2xl">
                                 <img
                                     src="/about-img/Akshita.png"
                                     alt="Akshita"
@@ -138,7 +139,7 @@ const AboutSection = () => {
                     {/* Card 2: Mission */}
                     <div
                         ref={el => cardsRef.current[1] = el}
-                        className="relative flex-shrink-0 w-[90vw] md:w-[70vw] h-[80vh] rounded-3xl overflow-hidden transition-transform duration-300"
+                        className="relative flex-shrink-0 w-[85vw] md:w-[65vw] h-[60vh] rounded-3xl overflow-hidden transition-transform duration-300"
                         style={{
                             background: 'radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 141, 194, 0.1), transparent 40%)'
                         }}
@@ -170,7 +171,7 @@ const AboutSection = () => {
                     {/* Card 3: CTA */}
                     <div
                         ref={el => cardsRef.current[2] = el}
-                        className="relative flex-shrink-0 w-[90vw] md:w-[70vw] h-[80vh] rounded-3xl overflow-hidden transition-transform duration-300"
+                        className="relative flex-shrink-0 w-[85vw] md:w-[65vw] h-[60vh] rounded-3xl overflow-hidden transition-transform duration-300"
                         style={{
                             background: 'radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 141, 194, 0.1), transparent 40%)'
                         }}
@@ -193,13 +194,11 @@ const AboutSection = () => {
                                 </p>
                             </motion.div>
 
-                            <motion.button
-                                whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(68, 215, 158, 0.5)" }}
-                                whileTap={{ scale: 0.95 }}
-                                className="px-12 py-6 bg-[#44D79E] text-black text-xl font-bold rounded-full hover:shadow-[0_0_50px_rgba(68,215,158,0.6)] transition-all duration-300"
+                            <MagneticButton
+                                className="px-12 py-6 bg-[#44D79E] text-black text-xl font-bold hover:shadow-[0_0_50px_rgba(68,215,158,0.6)] transition-all duration-300 border-none"
                             >
                                 Let's Work Together
-                            </motion.button>
+                            </MagneticButton>
                         </div>
                     </div>
                 </div>

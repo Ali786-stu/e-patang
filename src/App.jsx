@@ -1,6 +1,7 @@
 import React from 'react';
 import SmoothScroll from './components/SmoothScroll';
-import CustomCursor from './components/CustomCursor';
+// CustomCursor removed as per user request
+// import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import VaultStatsSection from './components/VaultStatsSection';
@@ -10,7 +11,7 @@ import ProcessSection from './components/ProcessSection';
 function App() {
     return (
         <SmoothScroll>
-            <CustomCursor />
+            {/* <CustomCursor /> */}
             <Navbar />
 
             <main className="min-h-screen">

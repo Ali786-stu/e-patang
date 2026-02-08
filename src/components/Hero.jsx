@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HexagonGrid from './HexagonGrid';
 import Typewriter from './Typewriter';
+import MagneticButton from './MagneticButton';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -248,20 +249,16 @@ const Hero = () => {
 
                                 {/* CTA Buttons */}
                                 <div className="flex flex-wrap items-center gap-6">
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className="px-8 py-4 bg-[#44D79E] text-black font-bold rounded-full hover:shadow-[0_0_30px_rgba(68,215,158,0.4)] transition-shadow duration-300"
+                                    <MagneticButton
+                                        className="bg-[#44D79E] text-black font-bold hover:shadow-[0_0_30px_rgba(68,215,158,0.4)] transition-shadow duration-300 border-none"
                                     >
                                         START A PROJECT
-                                    </motion.button>
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className="px-8 py-4 border border-white/20 text-white font-bold rounded-full hover:bg-white/10 transition-colors duration-300"
+                                    </MagneticButton>
+                                    <MagneticButton
+                                        className="border border-white/20 text-white font-bold hover:bg-white/10 transition-colors duration-300"
                                     >
                                         OUR WORK
-                                    </motion.button>
+                                    </MagneticButton>
                                 </div>
                             </motion.div>
                         </motion.div>

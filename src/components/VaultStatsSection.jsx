@@ -95,12 +95,9 @@ const VaultStatsSection = () => {
 
             tl.to({}, { duration: 2 }); // Reduced from 3
 
-            // FINAL EXIT: Slide up to next section
-            tl.to(pinContainerRef.current, {
-                yPercent: -100,
-                duration: 2,
-                ease: "power2.inOut"
-            }, "+=0.5");
+            // FINAL EXIT: Let the pin naturally release
+            // No need to slide up manually as it creates a gap
+            tl.to({}, { duration: 0.5 }); // Small buffer before unpinning
 
             // Cleanup gravity at the end
             tl.call(() => {
