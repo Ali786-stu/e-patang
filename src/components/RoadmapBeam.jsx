@@ -17,10 +17,7 @@ export default function RoadmapBeam() {
     // const greenPath = "M 900 0 L 900 50 Q 900 80 880 80 L -450 80 L -450 150";
     const greenPath = "M 900 0 L 900 50 Q 900 80 880 80 L -420 80 Q -450 80 -450 110 L -450 150";
 
-    const cyanPath = ` M 940 0 L 940 100 C 940 150 900 160 850 160 L 300 160 
-C 220 160 200 180 220 220 
-L 400 350
-`;
+    const cyanPath = ` M 940 0 L 940 100 C 940 160 880 160 880 160 L 250 160 C 220 160 200 180 220 220 L 400 350`;
 
 
 
