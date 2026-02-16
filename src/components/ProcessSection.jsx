@@ -1,255 +1,137 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { motion, useSpring, useMotionValue } from 'framer-motion';
+import React, { useRef } from 'react';
+import TypewriterHeading from './TypewriterHeading';
+import { motion } from 'framer-motion';
+import Lottie from 'lottie-react';
+import MagicCard from './MagicCard';
 
-gsap.registerPlugin(ScrollTrigger);
+import clarityData from '../assets/clarity.json';
+import mobileData from '../assets/mobile.json';
+import pillarsData from '../assets/pillars.json';
+import calendarData from '../assets/Calendar.json';
+import graphicData from '../assets/graphic.json';
+import reportData from '../assets/report.json';
 
 const ProcessSection = () => {
     const sectionRef = useRef(null);
-    const cardsRef = useRef([]);
-    const progressLineRef = useRef(null);
-    const [currentStep, setCurrentStep] = useState(1);
 
     const processSteps = [
         {
-            number: 1,
+            number: "01",
             title: "Onboarding Call",
-            description: "We ask you 50-60 questions about your personal and professional life to help us get into your shoes and understand your stories.",
-            image: "/work-p/img1.png"
+            description: "We dive deep into your brand with 50-60 tailored questions to understand your story, voice, and goals.",
+            animationData: clarityData,
         },
         {
-            number: 2,
+            number: "02",
             title: "Profile Optimization",
-            description: "Our team will then work on your headline, bio, banner etc and give you, your optimisation in the next 24 hours.",
-            image: "/work-p/img-2.png"
+            description: "Within 24 hours, we revamp your bio, headline, and banner to ensure your profile converts visitors into followers.",
+            animationData: mobileData,
         },
         {
-            number: 3,
+            number: "03",
             title: "Content Pillars",
-            description: "We will be using our infamous funnel – TOFU, MOFU, BOFU to give you the perfect mix of topics that you will love.",
-            image: "/work-p/img-3.png"
+            description: "We craft a strategic mix of TOFU, MOFU, and BOFU content pillars to target every stage of your audience's journey.",
+            animationData: pillarsData,
         },
         {
-            number: 4,
+            number: "04",
             title: "Content Calendar",
-            description: "We share a notion board with you with content every Monday. Which means 0 follow ups. Only 15-20 mins of your time to approve content.",
-            image: "/work-p/img-4.jpg"
+            description: "Receive a full Notion board every Monday. No chasing, just 15 minutes of your time to review and approve.",
+            animationData: calendarData,
         },
         {
-            number: 5,
+            number: "05",
             title: "Graphics Approval",
-            description: "To communicate with you in real-time & churn content as per your requirements, we create a WhatsApp/slack group to communicate with you faster.",
-            image: "/work-p/img-5.png"
+            description: "Real-time collaboration via WhatsApp or Slack ensures rapid feedback loops and designs that hit the mark.",
+            animationData: graphicData,
         },
         {
-            number: 6,
+            number: "06",
             title: "Progress Report",
-            description: "We track your progress weekly to understand what's working & then deep dive every month to give you a detailed analysis.",
-            image: "/work-p/img-6.png"
+            description: "Weekly tracking and deep-dive monthly analysis to show you exactly what's working and how we're growing.",
+            animationData: reportData,
         }
     ];
-
-    const scrollProgress = useMotionValue(0);
-    const scaleY = useSpring(scrollProgress, {
-        stiffness: 100,
-        damping: 30,
-        restDelta: 0.001
-    });
-
-    useLayoutEffect(() => {
-        let ctx = gsap.context(() => {
-            const cards = cardsRef.current.filter(Boolean);
-            const totalSteps = processSteps.length;
-
-            // Set initial states - all cards hidden
-            gsap.set(cards, {
-                opacity: 0,
-                y: 100,
-                scale: 0.95,
-                zIndex: 0
-            });
-
-            // Main timeline with ScrollTrigger
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: "top top",
-                    end: `+=${totalSteps * 100}%`,
-                    pin: true,
-                    scrub: 1.5,
-                    onUpdate: (self) => {
-                        const step = Math.min(Math.ceil(self.progress * totalSteps), totalSteps);
-                        setCurrentStep(step || 1);
-                        // Sync MotionValue with GSAP progress
-                        scrollProgress.set(self.progress);
-                    }
-                }
-            });
-
-            // Animate each card with proper timing
-            cards.forEach((card, index) => {
-                // Each card gets 1 unit of time
-                const cardStart = index;
-                const cardEnd = index + 0.8;
-
-                // Card Enter - fade in and slide up
-                tl.to(card, {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    zIndex: 10,
-                    duration: 0.4,
-                    ease: "power2.out"
-                }, cardStart);
-
-                // Card Exit - fade out and slide up (except last card)
-                if (index < cards.length - 1) {
-                    tl.to(card, {
-                        opacity: 0,
-                        y: -100,
-                        scale: 0.95,
-                        zIndex: 0,
-                        duration: 0.4,
-                        ease: "power2.in"
-                    }, cardEnd);
-                }
-            });
-
-        }, sectionRef);
-
-        return () => ctx.revert();
-    }, []);
-
-    const handleMouseMove = (e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-        e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
-    };
 
     return (
         <section
             ref={sectionRef}
-            className="relative min-h-screen w-full bg-[#050505] overflow-hidden pt-20"
+            className="relative w-full bg-[#040A15] overflow-hidden pt-0 pb-20 -mt-20 md:-mt-32 z-20"
         >
-            {/* Background Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#050505] via-[#0a0a0a] to-[#050505] opacity-50" />
 
-            {/* Content Container */}
-            <div className="relative z-10 h-screen flex items-center justify-center px-6 md:px-12">
 
-                {/* Left: Progress Indicator */}
-                <div className="hidden md:flex flex-col items-center absolute left-12 top-1/2 -translate-y-1/2 gap-4">
-                    {/* Vertical Text */}
-                    <div className="text-xs uppercase tracking-[0.3em] text-gray-500 -rotate-90 origin-center whitespace-nowrap mb-20">
-                        Progress
-                    </div>
-
-                    {/* Progress Bar Container */}
-                    <div className="relative h-64 w-1 bg-white/10 rounded-full overflow-hidden">
-                        {/* Active Progress */}
-                        <motion.div
-                            style={{ scaleY }}
-                            className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[#008FC3] via-[#008FC3] to-[#00B4D8] origin-top"
-                        />
-                    </div>
-
-                    {/* Step Counter */}
-                    <div className="flex flex-col items-center gap-2 mt-4">
-                        <div className="w-10 h-10 rounded-full border-2 border-[#44D79E] flex items-center justify-center">
-                            <span className="text-[#44D79E] font-bold text-sm">{currentStep}</span>
-                        </div>
-                        <span className="text-xs text-gray-500">/ {processSteps.length}</span>
-                    </div>
-                </div>
-
-                {/* Center: Content */}
-                <div className="w-full max-w-6xl mx-auto">
-                    {/* Header */}
-                    <div className="text-center mb-10">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
-                            className="text-[#44D79E] text-sm md:text-base font-bold tracking-[0.3em] uppercase mb-4"
-                        >
-                            How We Work
-                        </motion.div>
-                        <motion.h2
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.1 }}
-                            className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white"
-                        >
-                            Our Proven <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#44D79E] to-teal-400">Process</span>
-                        </motion.h2>
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                            className="text-gray-400 text-lg md:text-xl mt-4 max-w-2xl mx-auto"
-                        >
-                            A streamlined 6-step journey from strategy to measurable results.
-                        </motion.p>
-                    </div>
-
-                    {/* Cards Stack */}
-                    <div className="relative w-full h-[450px] md:h-[480px]">
-                        {processSteps.map((step, index) => (
-                            <div
-                                key={step.number}
-                                ref={el => cardsRef.current[index] = el}
-                                className="absolute inset-0 w-full"
-                                onMouseMove={handleMouseMove}
-                                style={{
-                                    background: 'radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 141, 194, 0.15), transparent 40%)'
-                                }}
-                            >
-                                {/* Card */}
-                                <div className="relative w-full h-full rounded-3xl overflow-hidden bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-md border border-white/10">
-                                    <div className="h-full flex flex-col md:flex-row items-center gap-6 p-6 md:p-10">
-                                        {/* Left: Image */}
-                                        <div className="flex-shrink-0 w-full md:w-1/2 h-52 md:h-80 rounded-2xl overflow-hidden border border-white/10 bg-white/5">
-                                            <img
-                                                src={step.image}
-                                                alt={step.title}
-                                                className="w-full h-full object-contain p-2"
-                                            />
-                                        </div>
-
-                                        {/* Right: Content */}
-                                        <div className="flex-1 flex flex-col justify-center text-left">
-                                            {/* Step Number */}
-                                            <div className="text-[#44D79E] text-sm font-bold tracking-[0.3em] uppercase mb-3">
-                                                Step {step.number}
-                                            </div>
-
-                                            {/* Title */}
-                                            <h3 className="text-2xl md:text-4xl font-display font-bold text-white mb-4">
-                                                {step.title}
-                                            </h3>
-
-                                            {/* Description */}
-                                            <p className="text-gray-300 text-base md:text-lg leading-relaxed">
-                                                {step.description}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+            {/* Header */}
+            <div className="text-center mb-16 relative z-10 px-4">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="text-[#44D79E] text-sm md:text-base font-bold tracking-[0.3em] uppercase mb-4"
+                >
+                    How We Work
+                </motion.div>
+                <TypewriterHeading
+                    text="Our Proven"
+                    highlightText="Process"
+                    className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-white"
+                />
             </div>
 
-            {/* Mobile Step Indicator */}
-            <div className="md:hidden absolute bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full border-2 border-[#44D79E] flex items-center justify-center">
-                    <span className="text-[#44D79E] font-bold">{currentStep}</span>
+            {/* Main Content Container with Grid */}
+            <div className="container mx-auto px-4 relative max-w-7xl">
+
+                {/* Steps Grid */}
+                <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-10">
+                    {processSteps.map((step, index) => (
+                        <MagicCard
+                            key={index}
+                            className="group relative bg-[#121212]/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 transition-colors duration-500 flex flex-col h-full"
+                            glowColor="68, 215, 158" // #44D79E
+                            particleCount={12}
+                            enableTilt={false}
+                            enableMagnetism={false}
+                        >
+
+                            {/* Glass Glow Effect (Subtle) */}
+                            <div className="absolute inset-0 bg-white/[0.02] pointer-events-none" />
+
+                            <div className="relative flex flex-col gap-4 flex-grow z-10 pointer-events-none">
+                                <div className="flex justify-between items-start">
+                                    <span className="text-4xl font-display font-bold text-white/5 group-hover:text-[#44D79E]/20 transition-colors duration-500">
+                                        {step.number}
+                                    </span>
+                                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-[#44D79E] group-hover:text-black transition-all duration-300">
+                                        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#44D79E] transition-colors duration-300">
+                                        {step.title}
+                                    </h3>
+                                    <p className="text-gray-400 text-sm leading-relaxed">
+                                        {step.description}
+                                    </p>
+                                </div>
+
+                                {/* Lottie Animation */}
+                                <div className="w-full h-48 md:h-64 mt-auto rounded-xl overflow-hidden relative bg-white/5 flex items-center justify-center p-2 group-hover:bg-white/10 transition-colors duration-500">
+                                    <Lottie
+                                        animationData={step.animationData}
+                                        loop={true}
+                                        autoplay={true}
+                                        className="w-full h-full object-contain filter drop-shadow-[0_0_10px_rgba(255,255,255,0.1)]"
+                                    />
+                                    {/* Subtle Gradient Overlay */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
+                                </div>
+                            </div>
+                        </MagicCard>
+                    ))}
                 </div>
-                <span className="text-gray-500">/ {processSteps.length}</span>
+
             </div>
         </section>
     );

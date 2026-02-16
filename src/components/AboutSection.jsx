@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion, useSpring, useMotionValue } from 'framer-motion';
 import MagneticButton from './MagneticButton';
+import TypewriterHeading from './TypewriterHeading';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -79,7 +80,7 @@ const AboutSection = () => {
     return (
         <section
             ref={sectionRef}
-            className="relative h-screen w-full bg-[#050505] overflow-hidden"
+            className="relative min-h-screen w-full bg-[#050505] overflow-hidden py-20"
         >
             {/* Background Gradient */}
             <div className="absolute inset-0 bg-gradient-to-br from-[#050505] via-[#0a0a0a] to-[#050505] opacity-50" />
@@ -116,14 +117,11 @@ const AboutSection = () => {
 
                             {/* Right: Content */}
                             <div className="flex-1 text-left max-w-xl">
-                                <motion.h2
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.6 }}
-                                    className="text-4xl md:text-6xl font-display font-bold text-white mb-6"
-                                >
-                                    Hello, I am <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#44D79E] to-teal-400">Akshita</span>
-                                </motion.h2>
+                                <TypewriterHeading
+                                    text="Hello, I am"
+                                    highlightText="Akshita"
+                                    className="text-4xl md:text-6xl font-display font-bold mb-6 !justify-start"
+                                />
                                 <motion.p
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}

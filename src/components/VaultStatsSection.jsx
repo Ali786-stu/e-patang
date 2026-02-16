@@ -110,7 +110,7 @@ const VaultStatsSection = () => {
     }, []);
 
     return (
-        <section ref={sectionRef} className="relative h-screen w-full bg-[#050505] overflow-hidden">
+        <section ref={sectionRef} className="relative min-h-screen w-full bg-[#050505] overflow-hidden">
 
             {/* PINNED CONTAINER */}
             <div ref={pinContainerRef} className="absolute inset-0 w-full h-full flex items-start justify-center">
@@ -119,21 +119,21 @@ const VaultStatsSection = () => {
                 <div
                     ref={stackContainerRef}
                     className="flex flex-col w-full relative opacity-0"
-                    style={{ height: '200vh', transform: 'translateY(0)' }}
+                    style={{ height: 'auto', transform: 'translateY(0)' }}
                 >
 
-                    {/* SECTION 1: STATS (Height 100vh) */}
-                    <div className="h-[100vh] w-full flex flex-col items-center justify-center text-center px-6 relative shrink-0">
+                    {/* SECTION 1: STATS (Min-Height Screen) */}
+                    <div className="min-h-screen w-full flex flex-col items-center justify-center text-center px-6 py-20 lg:py-0 relative shrink-0">
                         <div className="w-full max-w-7xl flex flex-col items-center">
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[#44D79E]/5 rounded-full blur-[120px] pointer-events-none" />
 
-                            <h3 className="text-[#44D79E] text-sm md:text-base font-bold tracking-[0.3em] uppercase mb-4 opacity-80">
+                            <h3 className="text-[#44D79E] text-xs md:text-base font-bold tracking-[0.3em] uppercase mb-4 opacity-80">
                                 All Organic
                             </h3>
-                            <h2 className="text-5xl md:text-8xl font-display font-medium text-white mb-8 md:mb-12 tracking-tighter">
+                            <h2 className="text-3xl md:text-8xl font-display font-medium text-white mb-6 md:mb-12 tracking-tighter">
                                 Cut through the <span ref={scrambleTextRef} className="text-transparent bg-clip-text bg-gradient-to-r from-[#44D79E] to-teal-500">Noise</span>
                             </h2>
-                            <p className="text-gray-400 text-lg md:text-2xl max-w-3xl mx-auto mb-12 md:mb-16 leading-relaxed font-light">
+                            <p className="text-gray-400 text-base md:text-2xl max-w-3xl mx-auto mb-10 md:mb-16 leading-relaxed font-light">
                                 Our team helps you stand out and become a thought leader in your industry which will help you <span className="text-white font-medium">hire better</span>, <span className="text-white font-medium">get leads</span>, and <span className="text-white font-medium">investment</span>.
                             </p>
 
@@ -199,8 +199,8 @@ const VaultStatsSection = () => {
                         </div>
                     </div>
 
-                    {/* SECTION 2: GRAVITY (Height 100vh) */}
-                    <div className="h-[100vh] w-full flex flex-col items-center justify-center relative shrink-0">
+                    {/* SECTION 2: GRAVITY (Min-Height Screen) */}
+                    <div className="min-h-screen w-full flex flex-col items-center justify-center relative shrink-0">
                         <div className="w-full flex-1 flex items-center justify-center">
                             <GravitySection start={startGravity} />
                         </div>

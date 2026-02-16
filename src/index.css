@@ -46,3 +46,56 @@ html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+/* ===== HERO BLOB MORPHING ANIMATIONS ===== */
+@keyframes blob-morph-1 {
+  0% {
+    border-radius: 60% 40% 55% 45% / 45% 55% 42% 58%;
+  }
+
+  25% {
+    border-radius: 45% 55% 62% 38% / 52% 48% 55% 45%;
+  }
+
+  50% {
+    border-radius: 55% 45% 40% 60% / 42% 58% 50% 50%;
+  }
+
+  75% {
+    border-radius: 40% 60% 50% 50% / 58% 42% 45% 55%;
+  }
+
+  100% {
+    border-radius: 60% 40% 55% 45% / 45% 55% 42% 58%;
+  }
+}
+
+@keyframes blob-morph-2 {
+  0% {
+    border-radius: 45% 55% 40% 60% / 55% 42% 58% 45%;
+  }
+
+  25% {
+    border-radius: 55% 45% 52% 48% / 42% 58% 45% 55%;
+  }
+
+  50% {
+    border-radius: 40% 60% 45% 55% / 58% 45% 52% 48%;
+  }
+
+  75% {
+    border-radius: 58% 42% 55% 45% / 48% 52% 40% 60%;
+  }
+
+  100% {
+    border-radius: 45% 55% 40% 60% / 55% 42% 58% 45%;
+  }
+}
+
+.animate-blob-morph-1 {
+  animation: blob-morph-1 8s ease-in-out infinite;
+}
+
+.animate-blob-morph-2 {
+  animation: blob-morph-2 10s ease-in-out infinite;
+}
