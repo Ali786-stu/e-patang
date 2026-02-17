@@ -82,7 +82,7 @@ const Footer = () => {
     };
 
     return (
-        <footer className="relative bg-[#050505] pt-24 pb-12 overflow-hidden">
+        <footer className="relative bg-[#040A15] pt-24 pb-12 overflow-hidden">
             {/* Background Accents */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#44D79E]/5 rounded-full blur-[120px] pointer-events-none" />

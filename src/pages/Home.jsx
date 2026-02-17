@@ -5,6 +5,7 @@ import TestimonialTicker from '../components/TestimonialTicker';
 import GravitySection from '../components/GravitySection';
 import RoadmapBeam from '../components/RoadmapBeam';
 import ProcessSection from '../components/ProcessSection';
+import OfferSection from '../components/OfferSection';
 import InitiativeSection from '../components/InitiativeSection';
 import ContactSection from '../components/ContactSection';
 
@@ -38,6 +39,9 @@ const Home = () => {
             <div id="services">
                 <ProcessSection />
             </div>
+
+            {/* Offer Section */}
+            <OfferSection />
 
             {/* Our Initiative Section */}
             <div id="initiative">

@@ -110,15 +110,23 @@ const GravitySection = () => {
 
         const trigger = ScrollTrigger.create({
             trigger: sceneRef.current,
-            start: "top 80%", // Trigger when section is 80% into view
+            start: "top 90%",
             onEnter: () => setIsInView(true),
-            once: true // Only trigger once
+            onEnterBack: () => setIsInView(true),
+            onLeave: () => {
+                setIsInView(false);
+                startedRef.current = false;
+            },
+            onLeaveBack: () => {
+                setIsInView(false);
+                startedRef.current = false;
+            }
         });
 
         return () => trigger.kill();
     }, []);
 
-    // --- Ball Drop Trigger (Staggered "Liquid" Pour) ---
+    // --- Ball Drop Trigger ---
     useEffect(() => {
         if (isInView && engineRef.current && !startedRef.current) {
             startedRef.current = true;
@@ -129,33 +137,31 @@ const GravitySection = () => {
                 '/brand-img/ing1.png', '/brand-img/img2.png', '/brand-img/img3.png', '/brand-img/img4.png', '/brand-img/img5.png'
             ];
 
-            const colorThemes = [{ bg: '#87CEEB', border: '#87CEEB' }];
+            const themes = [{ bg: '#87CEEB', border: '#87CEEB' }];
             const isMobile = width < 768;
-            const bubbleCount = isMobile ? 35 : 100;
-            const minSize = isMobile ? 45 : 50;
+            const bubbleCount = isMobile ? 30 : 80;
+            const minSize = isMobile ? 40 : 50;
             const sizeRange = isMobile ? 15 : 20;
 
             let spawnedCount = 0;
-            const batchSize = isMobile ? 4 : 8; // Spawn in small batches for flow
+            const batchSize = isMobile ? 4 : 8;
 
             const interval = setInterval(() => {
                 const batch = [];
                 for (let i = 0; i < batchSize && spawnedCount < bubbleCount; i++) {
                     const img = logoFiles[spawnedCount % logoFiles.length];
-                    const theme = colorThemes[0];
+                    const theme = themes[0];
                     const size = minSize + Math.random() * sizeRange;
                     const x = Math.random() * width;
-                    // Spawn slightly randomized height for layered effect
                     const y = -Math.random() * 100 - 50;
 
                     const body = Bodies.circle(x, y, size / 2, {
-                        restitution: 0.2, // Lower bounce for thick "heavy" pour
+                        restitution: 0.2,
                         friction: 0.1,
-                        frictionAir: 0.015, // Smooth air resistance
+                        frictionAir: 0.015,
                         userData: { img, color: theme.bg, borderColor: theme.border, size }
                     });
 
-                    // Add initial downward velocity for the "pouring" look
                     Body.setVelocity(body, {
                         x: (Math.random() - 0.5) * 2,
                         y: 8 + Math.random() * 4
@@ -172,9 +178,14 @@ const GravitySection = () => {
                 if (spawnedCount >= bubbleCount) {
                     clearInterval(interval);
                 }
-            }, 50); // Fast interval for a continuous stream
+            }, 50);
 
             return () => clearInterval(interval);
+        } else if (!isInView && engineRef.current) {
+            // Clear bubbles when not in view to reset
+            const { World } = Matter;
+            const bodiesToRemove = engineRef.current.world.bodies.filter(b => !b.isStatic);
+            World.remove(engineRef.current.world, bodiesToRemove);
         }
     }, [isInView]);
 

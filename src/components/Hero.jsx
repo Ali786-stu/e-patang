@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Typewriter from './Typewriter';
 import MagneticButton from './MagneticButton';
+import PremiumButton from './PremiumButton';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -60,7 +61,7 @@ const Hero = () => {
                 scrollTrigger: {
                     trigger: containerRef.current,
                     start: "top top",
-                    end: "+=300%", // Pin for 300% of viewport height
+                    end: "+=200%", // Pin for exactly 2 full scrolls (200% of viewport height)
                     pin: true,
                     scrub: 1,
                 }
@@ -152,11 +153,12 @@ const Hero = () => {
         return () => ctx.revert();
     }, []);
 
-    // Interactive Ripple Loop
+    // Interactive Ripple Loop - Optimized for smoothness (Smoothing out jitter)
     useEffect(() => {
         const moveHandler = (e) => {
             if (!mainWrapperRef.current) return;
-            const { left, top } = mainWrapperRef.current.getBoundingClientRect();
+            const { left, top, width, height } = mainWrapperRef.current.getBoundingClientRect();
+            // Normalize mouse position relative to image
             mouseX.current = e.clientX - left;
             mouseY.current = e.clientY - top;
         };
@@ -164,13 +166,28 @@ const Hero = () => {
         const wrapper = mainWrapperRef.current;
         wrapper.addEventListener('mousemove', moveHandler);
 
+        let lastDist = 0;
         const updateRipple = () => {
-            followX.current += (mouseX.current - followX.current) * 0.1;
-            followY.current += (mouseY.current - followY.current) * 0.1;
-            const dist = Math.sqrt(Math.pow(mouseX.current - followX.current, 2) + Math.pow(mouseY.current - followY.current, 2));
-            const rippleScale = gsap.utils.clamp(0, 30, dist * 0.6);
+            // Smoothly follow mouse with lerping (0.05 for high inertia)
+            followX.current += (mouseX.current - followX.current) * 0.05;
+            followY.current += (mouseY.current - followY.current) * 0.05;
+
+            const dx = mouseX.current - followX.current;
+            const dy = mouseY.current - followY.current;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            // Lerp the distance/scale to prevent "jhiljhila pan" (shaking)
+            lastDist += (dist - lastDist) * 0.1;
+
+            // Subtler Scale: Max 12 instead of 30 for premium feel
+            const rippleScale = gsap.utils.clamp(0, 12, lastDist * 0.4);
+
+            // Subtler Frequency: 0.005 base for organic waves
+            const baseFreq = 0.005 + rippleScale * 0.0002;
+
             gsap.set("#ripple-displacement", { attr: { scale: rippleScale } });
-            gsap.set("#ripple-turbulence", { attr: { baseFrequency: 0.01 + rippleScale * 0.0004 } });
+            gsap.set("#ripple-turbulence", { attr: { baseFrequency: baseFreq } });
+
             requestAnimationFrame(updateRipple);
         };
         const animFrame = requestAnimationFrame(updateRipple);
@@ -226,73 +243,89 @@ const Hero = () => {
                                 </p>
 
                                 <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 w-full">
-                                    <MagneticButton className="bg-[#44D79E] text-black font-bold hover:shadow-[0_0_30px_rgba(68,215,158,0.4)] transition-shadow duration-300 border-none px-6 py-3 lg:px-8 lg:py-4">
-                                        START A PROJECT
-                                    </MagneticButton>
-                                    <MagneticButton className="border border-white/20 text-white font-bold hover:bg-white/10 transition-colors duration-300 px-6 py-3 lg:px-8 lg:py-4">
-                                        OUR WORK
-                                    </MagneticButton>
+                                    <div className="w-full sm:w-auto">
+                                        <MagneticButton distance={0.4}>
+                                            <PremiumButton
+                                                className="!bg-[#44D79E] !text-black shadow-[0_0_30px_rgba(68,215,158,0.3)]"
+                                                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                                            >
+                                                START A PROJECT
+                                            </PremiumButton>
+                                        </MagneticButton>
+                                    </div>
+                                    <div className="w-full sm:w-auto">
+                                        <MagneticButton distance={0.4}>
+                                            <PremiumButton
+                                                variant="outline"
+                                                onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+                                            >
+                                                OUR WORK
+                                            </PremiumButton>
+                                        </MagneticButton>
+                                    </div>
                                 </div>
                             </motion.div>
                         </motion.div>
                     </div>
 
                     {/* RIGHT COLUMN: LIQUID REVEAL ANIMATION */}
-                    <div ref={liquidContainerRef} className="relative w-full h-[35vh] lg:h-[85vh] flex items-center justify-center lg:justify-end lg:pr-10 mt-16 lg:mt-0">
-                        <div
-                            ref={mainWrapperRef}
-                            onMouseEnter={() => setIsHovered(true)}
-                            onMouseLeave={() => setIsHovered(false)}
-                            className="relative overflow-hidden group w-full max-w-[220px] lg:max-w-[330px] h-auto"
-                            style={{
-                                filter: isHovered ? 'url(#interactive-ripple)' : 'url(#reveal-liquid)',
-                                transformOrigin: 'center center',
-                                willChange: 'filter',
-                                maskImage: 'url(/images/img.png)',
-                                WebkitMaskImage: 'url(/images/img.png)',
-                                maskSize: 'contain',
-                                WebkitMaskSize: 'contain',
-                                maskRepeat: 'no-repeat',
-                                WebkitMaskRepeat: 'no-repeat',
-                                maskPosition: 'center',
-                                WebkitMaskPosition: 'center'
-                            }}
-                        >
-                            <img
-                                src="/images/img.png"
-                                alt="Success Impact"
-                                className="w-full h-full object-contain pointer-events-none"
-                            />
-
-                            <svg
-                                ref={liquidOverlayRef}
-                                className="absolute inset-x-0 -top-full w-full h-[200%] z-10 pointer-events-none"
-                                viewBox="0 0 1000 1000"
-                                preserveAspectRatio="none"
-                                style={{ filter: 'url(#reveal-liquid)' }}
+                    <div ref={liquidContainerRef} className="relative w-full h-[35vh] lg:h-[85vh] flex items-end pb-6 lg:pb-10 justify-center lg:justify-end lg:pr-10 mt-16 lg:mt-0">
+                        {/* Shadow Wrapper: Adds depth to the masked image */}
+                        <div className="relative w-full max-w-[220px] lg:max-w-[330px] drop-shadow-[0_10px_50px_rgba(80,215,158,0.4)]">
+                            <div
+                                ref={mainWrapperRef}
+                                onMouseEnter={() => setIsHovered(true)}
+                                onMouseLeave={() => setIsHovered(false)}
+                                className="relative overflow-hidden group w-full h-auto"
+                                style={{
+                                    filter: isHovered ? 'url(#interactive-ripple)' : 'url(#reveal-liquid)',
+                                    transformOrigin: 'center center',
+                                    willChange: 'filter',
+                                    maskImage: 'url(/images/img.png)',
+                                    WebkitMaskImage: 'url(/images/img.png)',
+                                    maskSize: 'contain',
+                                    WebkitMaskSize: 'contain',
+                                    maskRepeat: 'no-repeat',
+                                    WebkitMaskRepeat: 'no-repeat',
+                                    maskPosition: 'bottom center',
+                                    WebkitMaskPosition: 'bottom center'
+                                }}
                             >
-                                <path
-                                    ref={wavePathRef}
-                                    fill="#44D79E"
-                                    fillOpacity="0.6"
-                                    d="M0,0 Q500,0 1000,0 V1000 H0 Z"
+                                <img
+                                    src="/images/img.png"
+                                    alt="Success Impact"
+                                    className="w-full h-full object-contain pointer-events-none"
                                 />
-                            </svg>
+
+                                <svg
+                                    ref={liquidOverlayRef}
+                                    className="absolute inset-x-0 -top-full w-full h-[200%] z-10 pointer-events-none"
+                                    viewBox="0 0 1000 1000"
+                                    preserveAspectRatio="none"
+                                    style={{ filter: 'url(#reveal-liquid)' }}
+                                >
+                                    <path
+                                        ref={wavePathRef}
+                                        fill="#44D79E"
+                                        fillOpacity="0.6"
+                                        d="M0,0 Q500,0 1000,0 V1000 H0 Z"
+                                    />
+                                </svg>
+                            </div>
                         </div>
                     </div>
-
                 </div>
-            </div>
 
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 2.5, duration: 1 }}
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-30"
-            >
-                <span className="text-xs uppercase tracking-[0.3em] text-gray-500">Scroll</span>
-                <div className="w-[1px] h-12 bg-gradient-to-b from-[#44D79E] to-transparent" />
-            </motion.div>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 2.5, duration: 1 }}
+                    className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-30"
+                >
+                    <span className="text-xs uppercase tracking-[0.3em] text-gray-500">Scroll</span>
+                    <div className="w-[1px] h-12 bg-gradient-to-b from-[#44D79E] to-transparent" />
+                </motion.div>
+            </div>
         </section>
     );
 };

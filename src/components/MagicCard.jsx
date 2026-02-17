@@ -269,7 +269,7 @@ const MagicCard = ({
             position: absolute;
             inset: 0;
             padding: 2px;
-            background: conic-gradient(from var(--border-angle), transparent 20%, rgba(${glowColor}, 1));
+            background: conic-gradient(from var(--border-angle), transparent 20%, rgba(var(--glow-color), 1));
             border-radius: inherit;
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
@@ -290,7 +290,12 @@ const MagicCard = ({
             <div
                 ref={cardRef}
                 className={`${className} magic-card-glow relative overflow-hidden`}
-                style={{ ...style, position: 'relative', overflow: 'hidden' }}
+                style={{
+                    ...style,
+                    position: 'relative',
+                    overflow: 'hidden',
+                    '--glow-color': glowColor
+                }}
             >
                 {children}
             </div>

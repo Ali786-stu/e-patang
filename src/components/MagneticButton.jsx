@@ -1,42 +1,49 @@
-import React, { useRef } from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef, useState } from 'react';
+import { motion, useSpring, useMotionValue } from 'framer-motion';
 
-const MagneticButton = ({ children, onClick, className = "", type = "button" }) => {
-    const buttonRef = useRef(null);
+/**
+ * A pure magnetic wrapper that attracts its children to the mouse cursor.
+ * Does NOT contain any styling, purely handles physics.
+ */
+const MagneticButton = ({ children, distance = 0.5 }) => {
+    const ref = useRef(null);
+
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    const springConfig = { damping: 15, stiffness: 150, mass: 0.1 };
+    const springX = useSpring(x, springConfig);
+    const springY = useSpring(y, springConfig);
+
+    const handleMouseMove = (e) => {
+        const { clientX, clientY } = e;
+        const { left, top, width, height } = ref.current.getBoundingClientRect();
+
+        const centerX = left + width / 2;
+        const centerY = top + height / 2;
+
+        const deltaX = clientX - centerX;
+        const deltaY = clientY - centerY;
+
+        x.set(deltaX * distance);
+        y.set(deltaY * distance);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
 
     return (
-        <motion.button
-            ref={buttonRef}
-            type={type}
-            onClick={onClick}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={`
-                group relative px-8 py-4 rounded-full overflow-hidden 
-                transition-all duration-300 ease-out flex items-center justify-center
-                ${className}
-            `}
+        <motion.div
+            ref={ref}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{ x: springX, y: springY }}
+            className="w-full flex items-center justify-center"
         >
-            {/* Background Fill Layer (Curtain) */}
-            <span
-                className="absolute inset-0 w-full h-full bg-[#028CC3] transform -translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out pointer-events-none"
-            />
-
-            {/* Content Wrapper for Rolling Text */}
-            <span className="relative z-10 block overflow-hidden leading-none">
-
-                {/* Text 1: Visible initially, slides up on hover */}
-                <span className="block transform translate-y-0 group-hover:-translate-y-[150%] transition-transform duration-300 ease-out">
-                    {children}
-                </span>
-
-                {/* Text 2: Hidden initially (below), slides to center on hover */}
-                <span className="absolute inset-0 block transform translate-y-[150%] group-hover:translate-y-0 transition-transform duration-300 ease-out text-black">
-                    {children}
-                </span>
-
-            </span>
-        </motion.button>
+            {children}
+        </motion.div>
     );
 };
 
