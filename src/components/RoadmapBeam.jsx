@@ -44,8 +44,8 @@ export default function RoadmapBeam() {
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: wrapperRef.current,
-                    start: "top 80%",
-                    end: "+=1700",
+                    start: "top 90%",
+                    end: "+=1500",
                     scrub: 3,
                 }
             });
@@ -78,19 +78,10 @@ export default function RoadmapBeam() {
                     ease: "none"
                 }, 0);
 
-                // 4. Kite-Specific Floating Logic (Pure Side-to-Side & Tail Wag)
+                // 4. Kite-Specific Floating Logic (Pure Side-to-Side Float)
                 gsap.to("#kite-group", {
                     y: 8, // Moves left-right relative to the kite's heading (Horizontal on vertical stretches)
-                    duration: 1.8,
-                    repeat: -1,
-                    yoyo: true,
-                    ease: "sine.inOut"
-                });
-
-                gsap.to("#kite-tail", {
-                    skewX: 20,
-                    scaleY: 0.8,
-                    duration: 1.5,
+                    duration: 4,
                     repeat: -1,
                     yoyo: true,
                     ease: "sine.inOut"
@@ -142,23 +133,13 @@ export default function RoadmapBeam() {
 
                     {/* Realistic Animated Kite Rider */}
                     <g ref={badgeRef} style={{ willChange: "transform" }}>
-                        {/* Glow and Blue Glassmorphism Circle */}
-                        <circle r="48" fill="url(#badge-glow-final)" />
-                        <circle
-                            r="34"
-                            fill="url(#blue-glass-gradient)"
-                            stroke="rgba(0, 224, 255, 0.4)"
-                            strokeWidth="1"
-                            className="drop-shadow-[0_0_20px_rgba(0,224,255,0.3)]"
-                        />
-
                         {/* Animated Kite Group - Scaled up for 3D effect */}
-                        <g id="kite-group" transform="scale(1.4) translate(0, -2)">
+                        <g id="kite-group" transform="scale(2) translate(0, -2)">
                             {/* Kite Tail (Wavy Animation) */}
                             <path
                                 id="kite-tail"
                                 d="M0,12 L-4,22 L4,22 Z"
-                                fill="#4FC593"
+                                fill="#008FC4"
                                 opacity="0.8"
                             />
 
@@ -170,7 +151,7 @@ export default function RoadmapBeam() {
                             />
 
                             {/* Bamboo Frame (Internal Sticks) */}
-                            <path d="M0,-18 V18 M-15,0 H15" stroke="#1E1B4B" strokeWidth="0.5" opacity="0.4" />
+                            <path d="M0,-18 V18 M-15," stroke="#1E1B4B" strokeWidth="0.5" opacity="0.4" />
                             <path d="M-15,0 Q0,-15 15,0" stroke="#1E1B4B" strokeWidth="0.5" fill="none" opacity="0.4" />
                         </g>
 

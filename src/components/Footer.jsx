@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
     Facebook,
-    Twitter,
+    Youtube,
     Instagram,
     Linkedin,
     Mail,
@@ -34,10 +34,10 @@ const Footer = () => {
             { name: "Lead Generation", href: "#services" }
         ],
         social: [
-            { icon: Facebook, href: "#", name: "Facebook" },
-            { icon: Twitter, href: "#", name: "Twitter" },
-            { icon: Instagram, href: "#", name: "Instagram" },
-            { icon: Linkedin, href: "#", name: "Linkedin" }
+            { icon: Facebook, href: "https://www.facebook.com/epatangindia", name: "Facebook" },
+            { icon: Youtube, href: "https://www.youtube.com/@ePatang", name: "Youtube" },
+            { icon: Instagram, href: "https://www.instagram.com/e_patang/", name: "Instagram" },
+            { icon: Linkedin, href: "https://www.linkedin.com/company/e-patang/posts/?feedView=all", name: "Linkedin" }
         ]
     };
 
@@ -111,18 +111,26 @@ const Footer = () => {
                         </div>
 
                         <div className="space-y-4">
-                            <div className="flex items-center gap-3 text-gray-400 hover:text-[#44D79E] transition-colors cursor-pointer group">
+                            <a
+                                href="https://www.google.com/maps/search/Parking+1,+Pincode+226012,+Uttar+Pradesh/@26.7738722,80.8875853,15z"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-3 text-gray-400 hover:text-[#44D79E] transition-colors group"
+                            >
                                 <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-[#44D79E]/10 transition-all duration-300">
                                     <MapPin size={18} />
                                 </div>
-                                <span className="text-sm">ABC... Digital, Innovation St.</span>
-                            </div>
-                            <div className="flex items-center gap-3 text-gray-400 hover:text-[#44D79E] transition-colors cursor-pointer group">
+                                <span className="text-sm">Parking 1, Pincode 226012, Uttar Pradesh</span>
+                            </a>
+                            <a
+                                href="tel:+919429691504"
+                                className="flex items-center gap-3 text-gray-400 hover:text-[#44D79E] transition-colors group"
+                            >
                                 <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-[#44D79E]/10 transition-all duration-300">
                                     <Phone size={18} />
                                 </div>
-                                <span className="text-sm">+91 0000000000</span>
-                            </div>
+                                <span className="text-sm">+91 94296 91504</span>
+                            </a>
                         </div>
                     </motion.div>
 

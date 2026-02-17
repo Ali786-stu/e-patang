@@ -187,26 +187,99 @@ const OfferSection = () => {
             icon: <Globe className="w-6 h-6 text-white" />,
             glow: "255, 255, 255",
             content: (
-                <div className="relative w-full h-[160px] bg-black/60 rounded-xl border border-white/5 overflow-hidden flex flex-col items-center pt-6">
-                    <div className="w-[130px] h-full bg-[#080808] rounded-t-xl border-x border-t border-white/20 p-1.5 relative shadow-2xl flex">
-                        {/* Sidebar Mock */}
-                        <div className="w-5 h-full border-r border-white/5 flex flex-col gap-2 pt-4">
-                            {[...Array(3)].map((_, i) => <div key={i} className="w-2 h-2 rounded-full bg-white/5 mx-auto" />)}
-                        </div>
-                        {/* Content Mock */}
-                        <div className="flex-1 flex flex-col p-2 gap-2 pt-3">
-                            <div className="flex gap-1">
-                                <div className="w-1 h-1 rounded-full bg-red-500/20" />
-                                <div className="w-1 h-1 rounded-full bg-yellow-500/20" />
-                                <div className="w-1 h-1 rounded-full bg-green-500/20" />
+                <div className="relative w-full h-[160px] bg-black/60 rounded-xl border border-white/5 overflow-hidden group/mockup">
+                    {/* Browser Toolbar */}
+                    <div className="absolute top-0 left-0 w-full h-4 bg-white/5 border-b border-white/5 flex items-center px-2 gap-1 z-20">
+                        <div className="w-1 h-1 rounded-full bg-red-500/30" />
+                        <div className="w-1 h-1 rounded-full bg-yellow-500/30" />
+                        <div className="w-1 h-1 rounded-full bg-green-500/30" />
+                        <div className="ml-2 w-16 h-1.5 bg-white/5 rounded-full" />
+                    </div>
+
+                    {/* Web Content Container */}
+                    <div className="w-full h-full pt-4 overflow-hidden relative">
+                        {/* Hero Section */}
+                        <div className="p-3 space-y-2">
+                            <motion.div
+                                animate={{ opacity: [0.6, 1, 0.6], x: [0, 2, 0] }}
+                                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                                className="w-3/4 h-2.5 bg-[#44D79E] rounded-full shadow-[0_0_10px_rgba(68,215,158,0.3)]"
+                            />
+                            <motion.div
+                                animate={{ opacity: [0.4, 0.7, 0.4] }}
+                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                                className="w-1/2 h-1.5 bg-white/10 rounded-full"
+                            />
+
+                            <div className="flex gap-2 mt-3">
+                                <motion.div
+                                    animate={{
+                                        boxShadow: ["0 0 0px rgba(68,215,158,0)", "0 0 15px rgba(68,215,158,0.2)", "0 0 0px rgba(68,215,158,0)"]
+                                    }}
+                                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                                    className="w-12 h-12 bg-white/5 rounded-lg border border-white/10 flex items-center justify-center relative overflow-hidden"
+                                >
+                                    <div className="absolute inset-0 bg-gradient-to-br from-[#44D79E]/10 to-transparent" />
+                                    <div className="w-1/2 h-1/2 bg-white/10 rounded-sm" />
+                                </motion.div>
+                                <div className="flex-1 space-y-1.5 pt-1">
+                                    {[100, 80, 60].map((w, i) => (
+                                        <motion.div
+                                            key={i}
+                                            animate={{ width: [`${w - 5}%`, `${w}%`, `${w - 5}%`], opacity: [0.3, 0.6, 0.3] }}
+                                            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
+                                            className="h-1 bg-white/10 rounded-full"
+                                        />
+                                    ))}
+                                </div>
                             </div>
-                            <div className="w-full h-8 bg-gradient-to-br from-white/5 to-transparent rounded shadow-inner" />
-                            <div className="grid grid-cols-2 gap-1.5">
-                                <div className="w-full h-4 bg-white/5 rounded" />
-                                <div className="w-full h-4 bg-white/5 rounded" />
-                            </div>
-                            <div className="w-full h-12 bg-white/5 rounded" />
                         </div>
+
+                        {/* Content Grid */}
+                        <div className="px-3 pb-3 grid grid-cols-3 gap-2 mt-1">
+                            {[...Array(3)].map((_, i) => (
+                                <div key={i} className="space-y-1.5">
+                                    <motion.div
+                                        animate={{
+                                            borderColor: ["rgba(255,255,255,0.05)", "rgba(68,215,158,0.2)", "rgba(255,255,255,0.05)"],
+                                            backgroundColor: ["rgba(255,255,255,0.02)", "rgba(255,255,255,0.05)", "rgba(255,255,255,0.02)"]
+                                        }}
+                                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
+                                        className="aspect-[4/3] bg-white/5 rounded border border-white/10 relative overflow-hidden"
+                                    >
+                                        <motion.div
+                                            animate={{ y: ["-100%", "100%"] }}
+                                            transition={{ duration: 2, repeat: Infinity, ease: "linear", delay: i * 0.5 }}
+                                            className="absolute inset-x-0 h-1/2 bg-gradient-to-b from-transparent via-[#44D79E]/5 to-transparent z-10"
+                                        />
+                                    </motion.div>
+                                    <motion.div
+                                        animate={{ opacity: [0.2, 0.5, 0.2] }}
+                                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
+                                        className="w-full h-1 bg-white/5 rounded-full"
+                                    />
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Floating Interaction (Simulated Mouse) */}
+                        <motion.div
+                            animate={{
+                                x: [100, 30, 80, 50, 100],
+                                y: [80, 20, 60, 40, 80],
+                                scale: [1, 0.9, 1.1, 1],
+                                opacity: [0, 1, 0.8, 1, 0]
+                            }}
+                            transition={{
+                                duration: 8,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                            className="absolute z-30 pointer-events-none"
+                        >
+                            <div className="w-2 h-2 bg-white rounded-full shadow-[0_0_15px_white]" />
+                            <div className="absolute inset-0 bg-white/30 rounded-full animate-ping" />
+                        </motion.div>
                     </div>
                 </div>
             ),

@@ -43,6 +43,8 @@ function ScrollHandler() {
     return null;
 }
 
+import FloatingActions from './components/FloatingActions';
+
 function App() {
     const [isLoading, setIsLoading] = useState(true);
 
@@ -62,6 +64,7 @@ function App() {
                         </Routes>
                         <Footer />
                     </main>
+                    <FloatingActions />
                 </SmoothScroll>
             </div>
         </>
