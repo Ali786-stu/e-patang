@@ -290,7 +290,7 @@ const OfferSection = () => {
     return (
         <section
             ref={sectionRef}
-            className="w-full bg-[#040A15] py-32 px-4 md:px-0 relative overflow-hidden"
+            className="w-full bg-black py-32 px-4 md:px-0 relative overflow-hidden"
         >
             {/* Background Decorative Blobs */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#44D79E]/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />

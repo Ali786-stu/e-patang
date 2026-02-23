@@ -2,6 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom Scrollbar Hide Utility */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+/* Solar Journey Stars */
+.stars-animation {
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow: 10px 10px white, 100px 150px white, 200px 300px white, 400px 50px white, 600px 400px white, 800px 200px white, 900px 500px white, 1200px 100px white, 500px 600px white, 300px 700px white, 700px 50px white, 1100px 300px white;
+  animation: stars-drift 100s linear infinite;
+}
+
+@keyframes stars-drift {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-1000px);
+  }
+}
+
 :root {
   color-scheme: dark;
 }

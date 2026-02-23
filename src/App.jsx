@@ -6,8 +6,10 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import UGCCreators from './pages/UGCCreators';
 import InfluencerMarketing from './pages/InfluencerMarketing';
+import Careers from './pages/Careers';
 import Preloader from './components/Preloader';
 import { useLenis } from 'lenis/react';
+import FloatingActions from './components/FloatingActions';
 
 // Optimized Scroll Handler for both Page changes and Anchor links
 function ScrollHandler() {
@@ -43,10 +45,10 @@ function ScrollHandler() {
     return null;
 }
 
-import FloatingActions from './components/FloatingActions';
-
 function App() {
     const [isLoading, setIsLoading] = useState(true);
+    const location = useLocation();
+    const isCareersPage = location.pathname === '/careers';
 
     return (
         <>
@@ -61,8 +63,9 @@ function App() {
                             <Route path="/" element={<Home />} />
                             <Route path="/ugc-creators" element={<UGCCreators />} />
                             <Route path="/influencer-marketing" element={<InfluencerMarketing />} />
+                            <Route path="/careers" element={<Careers />} />
                         </Routes>
-                        <Footer />
+                        {!isCareersPage && <Footer />}
                     </main>
                     <FloatingActions />
                 </SmoothScroll>

@@ -202,8 +202,13 @@ const Hero = () => {
         <section
             id="home"
             ref={containerRef}
-            className="relative min-h-screen bg-[#040A15] overflow-hidden flex items-start pt-16 md:pt-20"
+            className="relative min-h-screen bg-[#1c1c1c] overflow-hidden flex items-start pt-16 md:pt-20"
         >
+            {/* Premium Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[#1c1c1c] via-black to-black pointer-events-none" />
+
+            {/* Subtle Top Glow */}
+            <div className="absolute top-0 left-1/4 w-1/2 h-1/2 bg-blue-500/5 blur-[120px] rounded-full pointer-events-none" />
             {/* SVG FILTERS */}
             <svg style={{ position: 'absolute', width: 0, height: 0 }}>
                 <filter id="reveal-liquid">

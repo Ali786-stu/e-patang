@@ -35,7 +35,7 @@ const initiatives = [
 
 const InitiativeSection = () => {
     return (
-        <section className="relative py-32 bg-[#040A15] overflow-hidden">
+        <section className="relative py-32 bg-black overflow-hidden">
             {/* Background Layers */}
             <div className="absolute inset-0 z-0">
                 {/* Central Radial Glow */}

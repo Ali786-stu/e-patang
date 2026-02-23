@@ -190,7 +190,7 @@ const GravitySection = () => {
     }, [isInView]);
 
     return (
-        <div className="relative w-full h-[60vh] py-0 overflow-hidden bg-[#040A15]">
+        <div className="relative w-full h-[60vh] py-0 overflow-hidden bg-black">
             <div ref={sceneRef} className="absolute inset-0 z-0" />
 
             <div className="relative w-full h-full pointer-events-none">

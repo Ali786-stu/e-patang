@@ -56,7 +56,7 @@ const ProcessSection = () => {
     return (
         <section
             ref={sectionRef}
-            className="relative w-full bg-[#040A15] overflow-hidden pt-0 pb-20 -mt-20 md:-mt-32 z-20"
+            className="relative py-24 bg-black overflow-hidden pt-0 pb-20 -mt-20 md:-mt-32 z-20"
         >
 
 

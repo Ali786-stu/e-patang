@@ -18,7 +18,7 @@ const ContactSection = () => {
     };
 
     return (
-        <section className="relative min-h-screen bg-[#040A15] py-8 md:py-24 px-6 overflow-hidden flex flex-col items-center">
+        <section className="relative min-h-screen bg-black py-8 md:py-24 px-6 overflow-hidden flex flex-col items-center">
             {/* Background Glows */}
             <div className="absolute top-1/4 -left-20 w-[400px] h-[400px] bg-[#44D79E]/10 rounded-full blur-[120px] pointer-events-none" />
             <div className="absolute bottom-1/4 -right-20 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />

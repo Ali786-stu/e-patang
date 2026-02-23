@@ -6,7 +6,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const navItems = [
     { name: 'Home', href: '#home' },
     { name: 'Newsletter', href: '#newsletter' },
-    { name: 'Careers', href: '#careers' },
+    { name: 'Careers', href: '/careers' },
     { name: 'Contact Us', href: '#contact' },
 ];
 
@@ -86,7 +86,7 @@ const Navbar = () => {
             <motion.nav
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
-                className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${isScrolled || isMenuOpen ? 'py-4 bg-[#040A15]/80 backdrop-blur-md border-b border-white/10' : 'py-6 bg-transparent'
+                className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${isScrolled || isMenuOpen ? 'py-4 bg-black/80 backdrop-blur-md border-b border-white/10' : 'py-6 bg-transparent'
                     }`}
             >
                 <div className="container mx-auto px-6 flex items-center justify-between">
@@ -151,7 +151,7 @@ const Navbar = () => {
                         initial="closed"
                         animate="open"
                         exit="closed"
-                        className="fixed inset-0 w-full h-screen bg-[#040A15] z-[90] flex flex-col justify-center px-10 md:hidden"
+                        className="fixed inset-0 w-full h-screen bg-black z-[90] flex flex-col justify-center px-10 md:hidden"
                     >
                         <div className="flex flex-col gap-6">
                             <p className="text-gray-500 text-xs tracking-[0.3em] uppercase mb-4">Navigation</p>

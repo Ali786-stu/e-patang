@@ -92,7 +92,7 @@ const ImpactChartSection = () => {
         <section
             id="impact"
             ref={sectionRef}
-            className="relative pb-12 bg-[#050505] overflow-hidden border-b border-white/5"
+            className="relative bg-black pt-24 pb-12 overflow-hidden border-b border-white/5"
         >
             <div className="w-full relative px-0">
 

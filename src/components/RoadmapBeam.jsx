@@ -56,7 +56,7 @@ export default function RoadmapBeam() {
                 ease: "none"
             }, 0);
 
-            // Sync Badge Motion
+            // Sync Badge Motion in vertical direction
             if (badgeRef.current && greenPathRef.current) {
                 // Reveal badge
                 tl.fromTo(badgeRef.current, {
@@ -95,7 +95,7 @@ export default function RoadmapBeam() {
     return (
         <section
             ref={wrapperRef}
-            className="relative w-full min-h-screen bg-gradient-to-b from-black to-[#040A15] overflow-visible flex flex-col items-center justify-start pt-10 pb-32"
+            className="relative w-full min-h-screen bg-black overflow-visible flex flex-col items-center justify-start pt-10 pb-32"
         >
             {/* Beam Animation Container - With Bottom Fade Mask for 'Entry' effect */}
             <div
