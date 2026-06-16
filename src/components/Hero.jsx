@@ -286,8 +286,8 @@ const Hero = () => {
                                     filter: isHovered ? 'url(#interactive-ripple)' : 'url(#reveal-liquid)',
                                     transformOrigin: 'center center',
                                     willChange: 'filter',
-                                    maskImage: 'url(/images/img.png)',
-                                    WebkitMaskImage: 'url(/images/img.png)',
+                                    maskImage: 'url(/images/man-Photoroom.png)',
+                                    WebkitMaskImage: 'url(/images/man-Photoroom.png)',
                                     maskSize: 'contain',
                                     WebkitMaskSize: 'contain',
                                     maskRepeat: 'no-repeat',
@@ -297,7 +297,7 @@ const Hero = () => {
                                 }}
                             >
                                 <img
-                                    src="/images/img.png"
+                                    src="/images/man-Photoroom.png"
                                     alt="Success Impact"
                                     className="w-full h-full object-contain pointer-events-none"
                                 />
