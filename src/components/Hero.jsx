@@ -90,7 +90,7 @@ const Hero = () => {
 
             // 2. Wavy Growth Phase
             tl.to(mainWrapperRef.current, {
-                scale: 1.4,
+                scale: 1.1, // Reduced from 1.4 to prevent head cropping
                 opacity: 1,
                 duration: 1.5,
                 ease: "power2.out"
@@ -274,9 +274,9 @@ const Hero = () => {
                     </div>
 
                     {/* RIGHT COLUMN: LIQUID REVEAL ANIMATION */}
-                    <div ref={liquidContainerRef} className="relative w-full h-[35vh] lg:h-[85vh] flex items-end pb-6 lg:pb-10 justify-center lg:justify-end lg:pr-10 mt-16 lg:mt-0">
+                    <div ref={liquidContainerRef} className="relative w-full h-[45vh] lg:h-[85vh] flex items-end pb-6 lg:pb-10 justify-center lg:justify-end lg:pr-10 mt-28 lg:mt-0">
                         {/* Shadow Wrapper: Adds depth to the masked image */}
-                        <div className="relative w-full max-w-[220px] lg:max-w-[330px] drop-shadow-[0_10px_50px_rgba(80,215,158,0.4)]">
+                        <div className="relative w-full max-w-[240px] md:max-w-[320px] lg:max-w-[450px] drop-shadow-[0_10px_50px_rgba(80,215,158,0.4)]">
                             <div
                                 ref={mainWrapperRef}
                                 onMouseEnter={() => setIsHovered(true)}
@@ -284,7 +284,7 @@ const Hero = () => {
                                 className="relative overflow-hidden group w-full h-auto"
                                 style={{
                                     filter: isHovered ? 'url(#interactive-ripple)' : 'url(#reveal-liquid)',
-                                    transformOrigin: 'center center',
+                                    transformOrigin: 'bottom center',
                                     willChange: 'filter',
                                     maskImage: 'url(/images/man-Photoroom.png)',
                                     WebkitMaskImage: 'url(/images/man-Photoroom.png)',
